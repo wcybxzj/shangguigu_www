@@ -1,0 +1,26 @@
+1.@Value和@ConfigurationProperties
+都可以将resources/application.yml或者application.properties中的配置加载到对应的bean中去进行渲染
+==========================================================================================
+2.@PropertySource
+将resources中自定义的配置文件和当前的类进行匹配
+
+@PropertySource(value = {"classpath:bird.properties"})
+@Component
+@ConfigurationProperties(prefix = "bird")
+public class Bird {}
+==========================================================================================
+3.第一种加载组件到Springboot的Service的方法
+@ImportResource(locations = {"classpath:beans.xml"})
+在springboot入口定义@ImportResource
+这里读取Spring配置文件 beans.xml,加载bean中定义的helloService,进入到springboot
+==========================================================================================
+4.第二种加载组件到Springboot的Service的方法（SpringBoot推荐给容器中添加组件的方式,推荐使用全注解的方式）
+不来编写Spring的配置文件
+先写一个配置类config/MyAppConfig加上@Configuration------>Spring配置文件
+使用@Bean给容器中添加组件
+==========================================================================================
+5.通过profile来进行多环境部署
+方式1:使用application.properties时,多Profile文件
+我们在主配置文件编写的时候，文件名可以是 application-{profile}.properties/yml 默认使用application.properties的配置;
+
+方式2:yml支持多文档块方式,更简单
